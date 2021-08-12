@@ -5,12 +5,10 @@ import {clean} from 'semver';
 
 try {
   // Set github username and email
-  core.startGroup('Set git username and email');
   const username = 'github-actions[bot]';
   const email = '41898282+github-actions[bot]@users.noreply.github.com';
   execSync(`git config user.name "${username}"`, {timeout: 10000});
   execSync(`git config user.email "${email}"`, {timeout: 10000});
-  core.endGroup();
 
   // Extract version tag, ignoring leading "v" (e.g. v1.0.0 -> 1.0.0)
   core.startGroup('Extract release version');

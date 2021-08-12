@@ -9373,12 +9373,10 @@ var semver = __nccwpck_require__(1383);
 
 try {
     // Set github username and email
-    core.startGroup('Set git username and email');
     const username = 'github-actions[bot]';
     const email = '41898282+github-actions[bot]@users.noreply.github.com';
     (0,external_child_process_namespaceObject.execSync)(`git config user.name "${username}"`, { timeout: 10000 });
     (0,external_child_process_namespaceObject.execSync)(`git config user.email "${email}"`, { timeout: 10000 });
-    core.endGroup();
     // Extract version tag, ignoring leading "v" (e.g. v1.0.0 -> 1.0.0)
     core.startGroup('Extract release version');
     const rawTag = github.context.ref.substring('refs/tags/'.length);
