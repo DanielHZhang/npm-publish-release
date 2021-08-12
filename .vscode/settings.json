@@ -1,0 +1,13 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"eslint.packageManager": "yarn",
+	"js/ts.implicitProjectConfig.checkJs": true,
+	"typescript.autoClosingTags": true,
+	"typescript.reportStyleChecksAsWarnings": true,
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.preferences.useAliasesForRenames": false,
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+}

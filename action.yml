@@ -1,0 +1,12 @@
+name: "NPM Publish Release"
+description: "Publishes the most recent release to NPM and updates package.json version"
+# inputs:
+# npm-token:
+#   description: "NPM access token"
+#   required: true
+outputs:
+  result:
+    description: "Process exit code"
+runs:
+  using: "node12"
+  main: "lib/index.js"
