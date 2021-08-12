@@ -9386,11 +9386,11 @@ try {
     }
     core.info(`Parsed semver of this release: ${version}`);
     // Upgrade version in package.json to release tag version
-    (0,external_child_process_namespaceObject.execSync)(`npm version ${version} --ignore-scripts`, { timeout: 10000 });
+    (0,external_child_process_namespaceObject.execSync)(`yarn version --new-version ${version}`, { timeout: 10000 });
     core.endGroup();
     // Publish to NPM with auth token
     core.startGroup('Publishing...');
-    (0,external_child_process_namespaceObject.execSync)('npm publish --ignore-scripts', { timeout: 30000 });
+    (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
     core.endGroup();
     // Push new version to github
     core.startGroup('Push new semver tag');
