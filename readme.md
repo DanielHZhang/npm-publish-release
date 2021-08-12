@@ -22,7 +22,7 @@ jobs:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/
       - name: Run publish scripts
-        uses: danielhzhang/npm-publish-release
+        uses: danielhzhang/npm-publish-release@main
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

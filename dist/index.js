@@ -9372,26 +9372,32 @@ var semver = __nccwpck_require__(1383);
 
 
 try {
-    // Get input variables
-    // const GITHUB_TOKEN = core.getInput('github_token');
-    // const NODE_AUTH_TOKEN = core.getInput('npm_token');
     // Set github username and email
+    core.startGroup('Set git username and email');
     const username = 'github-actions[bot]';
     const email = '41898282+github-actions[bot]@users.noreply.github.com';
-    (0,external_child_process_namespaceObject.execSync)(`git config user.name "${username}"`);
-    (0,external_child_process_namespaceObject.execSync)(`git config user.email "${email}"`);
+    (0,external_child_process_namespaceObject.execSync)(`git config user.name "${username}"`, { timeout: 10000 });
+    (0,external_child_process_namespaceObject.execSync)(`git config user.email "${email}"`, { timeout: 10000 });
+    core.endGroup();
     // Extract version tag, ignoring leading "v" (e.g. v1.0.0 -> 1.0.0)
-    const dirtyTag = github.context.ref.substring('refs/tags/'.length);
-    const cleaned = (0,semver.clean)(dirtyTag);
-    if (!cleaned) {
+    core.startGroup('Extract release version');
+    const rawTag = github.context.ref.substring('refs/tags/'.length);
+    const version = (0,semver.clean)(rawTag);
+    if (!version) {
         throw new Error('Could not parse semver tag');
     }
+    core.info(`Parsed semver of this release: ${version}`);
     // Upgrade version in package.json to release tag version
-    (0,external_child_process_namespaceObject.execSync)(`yarn version --new-version ${cleaned}`);
+    (0,external_child_process_namespaceObject.execSync)(`npm version ${version}`, { timeout: 10000 });
+    core.endGroup();
     // Publish to NPM with auth token
-    (0,external_child_process_namespaceObject.execSync)('yarn publish');
+    core.startGroup('Publishing...');
+    (0,external_child_process_namespaceObject.execSync)('npm publish', { timeout: 30000 });
+    core.endGroup();
     // Push new version to github
-    (0,external_child_process_namespaceObject.execSync)('git push');
+    core.startGroup('Push new semver tag');
+    (0,external_child_process_namespaceObject.execSync)('git push', { timeout: 30000 });
+    core.endGroup();
 }
 catch (error) {
     if (error && error instanceof Error) {
