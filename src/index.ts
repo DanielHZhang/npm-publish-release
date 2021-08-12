@@ -19,12 +19,12 @@ try {
   }
   core.info(`Parsed semver of this release: ${version}`);
   // Upgrade version in package.json to release tag version
-  execSync(`npm version ${version}`, {timeout: 10000});
+  execSync(`npm version ${version} --ignore-scripts`, {timeout: 10000});
   core.endGroup();
 
   // Publish to NPM with auth token
   core.startGroup('Publishing...');
-  execSync('npm publish', {timeout: 30000});
+  execSync('npm publish --ignore-scripts', {timeout: 30000});
   core.endGroup();
 
   // Push new version to github
