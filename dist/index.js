@@ -9390,7 +9390,8 @@ try {
     core.endGroup();
     // Publish to NPM with auth token
     core.startGroup('Publishing...');
-    (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
+    const result = (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
+    core.info(`Publish result: ${result.toString('utf8')}`);
     core.endGroup();
     // Push new version to github
     core.startGroup('Push new semver tag');
@@ -9398,6 +9399,7 @@ try {
     core.endGroup();
 }
 catch (error) {
+    core.error('Publish workflow failed');
     if (error && error instanceof Error) {
         core.setFailed(error.message);
     }

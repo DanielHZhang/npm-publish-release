@@ -15,7 +15,7 @@
 	},
 	"prettier": "@supersede/prettier-config",
 	"eslintConfig": {
-		"extends": "@supersede/eslint-config"
+		"extends": "@supersede"
 	},
 	"files": [
 		"lib/**/*"

@@ -24,7 +24,8 @@ try {
 
   // Publish to NPM with auth token
   core.startGroup('Publishing...');
-  execSync('yarn publish', {timeout: 30000});
+  const result = execSync('yarn publish', {timeout: 30000});
+  core.info(`Publish result: ${result.toString('utf8')}`);
   core.endGroup();
 
   // Push new version to github
@@ -32,6 +33,7 @@ try {
   execSync('git push', {timeout: 30000});
   core.endGroup();
 } catch (error) {
+  core.error('Publish workflow failed');
   if (error && error instanceof Error) {
     core.setFailed(error.message);
   }
