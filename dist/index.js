@@ -9405,9 +9405,11 @@ try {
     core.endGroup();
 }
 catch (error) {
-    core.error(`Publish workflow failed with error: ${error}`);
-    if (error && error instanceof Error) {
+    if (error instanceof Error) {
         core.setFailed(error.message);
+    }
+    else {
+        core.error(`Publish workflow failed with error: ${error}`);
     }
 }
 
