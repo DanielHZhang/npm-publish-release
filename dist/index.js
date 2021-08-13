@@ -9386,20 +9386,22 @@ try {
     }
     core.info(`Parsed semver of this release: ${version}`);
     // Upgrade version in package.json to release tag version
-    (0,external_child_process_namespaceObject.execSync)(`yarn version --new-version ${version}`, { timeout: 10000 });
+    const versionResult = (0,external_child_process_namespaceObject.execSync)(`yarn version --new-version ${version}`, { timeout: 10000 });
+    core.info(versionResult.toString('utf8'));
     core.endGroup();
     // Publish to NPM with auth token
     core.startGroup('Publishing...');
-    const result = (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
-    core.info(`Publish result: ${result.toString('utf8')}`);
+    const publishResult = (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
+    core.info(publishResult.toString('utf8'));
     core.endGroup();
     // Push new version to github
     core.startGroup('Push new semver tag');
-    (0,external_child_process_namespaceObject.execSync)('git push', { timeout: 30000 });
+    const pushResult = (0,external_child_process_namespaceObject.execSync)('git push', { timeout: 30000 });
+    core.info(pushResult.toString('utf8'));
     core.endGroup();
 }
 catch (error) {
-    core.error('Publish workflow failed');
+    core.error(`Publish workflow failed with error: ${error}`);
     if (error && error instanceof Error) {
         core.setFailed(error.message);
     }
