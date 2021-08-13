@@ -23,6 +23,11 @@ try {
   core.info(versionResult.toString('utf8'));
   core.endGroup();
 
+  // Install dependencies (may be required for prepublishOnly hook)
+  core.info('Installing dependencies...');
+  execSync('yarn install', {timeout: 600000});
+  core.endGroup();
+
   // Publish to NPM with auth token
   core.startGroup('Publishing...');
   const publishResult = execSync('yarn publish', {timeout: 30000});

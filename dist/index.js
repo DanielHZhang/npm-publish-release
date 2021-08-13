@@ -9389,6 +9389,10 @@ try {
     const versionResult = (0,external_child_process_namespaceObject.execSync)(`yarn version --new-version ${version}`, { timeout: 10000 });
     core.info(versionResult.toString('utf8'));
     core.endGroup();
+    // Install dependencies (may be required for prepublishOnly hook)
+    core.info('Installing dependencies...');
+    (0,external_child_process_namespaceObject.execSync)('yarn install', { timeout: 600000 });
+    core.endGroup();
     // Publish to NPM with auth token
     core.startGroup('Publishing...');
     const publishResult = (0,external_child_process_namespaceObject.execSync)('yarn publish', { timeout: 30000 });
